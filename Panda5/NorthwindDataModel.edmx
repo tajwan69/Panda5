@@ -1,0 +1,956 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="NorthwindModel.Store" Provider="Npgsql" ProviderManifestToken="9.6.6" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="categories">
+          <Key>
+            <PropertyRef Name="categoryid" />
+          </Key>
+          <Property Name="categoryid" Type="int2" Nullable="false" />
+          <Property Name="categoryname" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="description" Type="text" />
+          <Property Name="picture" Type="bytea" />
+        </EntityType>
+        <EntityType Name="customercustomerdemo">
+          <Key>
+            <PropertyRef Name="customerid" />
+            <PropertyRef Name="customertypeid" />
+          </Key>
+          <Property Name="customerid" Type="bpchar" MaxLength="1" Nullable="false" />
+          <Property Name="customertypeid" Type="bpchar" MaxLength="1" Nullable="false" />
+        </EntityType>
+        <EntityType Name="customerdemographics">
+          <Key>
+            <PropertyRef Name="customertypeid" />
+          </Key>
+          <Property Name="customertypeid" Type="bpchar" MaxLength="1" Nullable="false" />
+          <Property Name="customerdesc" Type="text" />
+        </EntityType>
+        <EntityType Name="customers">
+          <Key>
+            <PropertyRef Name="customerid" />
+          </Key>
+          <Property Name="customerid" Type="bpchar" MaxLength="1" Nullable="false" />
+          <Property Name="companyname" Type="varchar" MaxLength="40" Nullable="false" />
+          <Property Name="contactname" Type="varchar" MaxLength="30" />
+          <Property Name="contacttitle" Type="varchar" MaxLength="30" />
+          <Property Name="address" Type="varchar" MaxLength="60" />
+          <Property Name="city" Type="varchar" MaxLength="15" />
+          <Property Name="region" Type="varchar" MaxLength="15" />
+          <Property Name="postalcode" Type="varchar" MaxLength="10" />
+          <Property Name="country" Type="varchar" MaxLength="15" />
+          <Property Name="phone" Type="varchar" MaxLength="24" />
+          <Property Name="fax" Type="varchar" MaxLength="24" />
+        </EntityType>
+        <EntityType Name="employees">
+          <Key>
+            <PropertyRef Name="employeeid" />
+          </Key>
+          <Property Name="employeeid" Type="int2" Nullable="false" />
+          <Property Name="lastname" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="firstname" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="title" Type="varchar" MaxLength="30" />
+          <Property Name="titleofcourtesy" Type="varchar" MaxLength="25" />
+          <Property Name="birthdate" Type="date" />
+          <Property Name="hiredate" Type="date" />
+          <Property Name="address" Type="varchar" MaxLength="60" />
+          <Property Name="city" Type="varchar" MaxLength="15" />
+          <Property Name="region" Type="varchar" MaxLength="15" />
+          <Property Name="postalcode" Type="varchar" MaxLength="10" />
+          <Property Name="country" Type="varchar" MaxLength="15" />
+          <Property Name="homephone" Type="varchar" MaxLength="24" />
+          <Property Name="extension" Type="varchar" MaxLength="4" />
+          <Property Name="photo" Type="bytea" />
+          <Property Name="notes" Type="text" />
+          <Property Name="reportsto" Type="int2" />
+          <Property Name="photopath" Type="varchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="employeeterritories">
+          <Key>
+            <PropertyRef Name="employeeid" />
+            <PropertyRef Name="territoryid" />
+          </Key>
+          <Property Name="employeeid" Type="int2" Nullable="false" />
+          <Property Name="territoryid" Type="varchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="order_details">
+          <Key>
+            <PropertyRef Name="orderid" />
+            <PropertyRef Name="productid" />
+          </Key>
+          <Property Name="orderid" Type="int2" Nullable="false" />
+          <Property Name="productid" Type="int2" Nullable="false" />
+          <Property Name="unitprice" Type="float4" Nullable="false" />
+          <Property Name="quantity" Type="int2" Nullable="false" />
+          <Property Name="discount" Type="float4" Nullable="false" />
+        </EntityType>
+        <EntityType Name="orders">
+          <Key>
+            <PropertyRef Name="orderid" />
+          </Key>
+          <Property Name="orderid" Type="int2" Nullable="false" />
+          <Property Name="customerid" Type="bpchar" MaxLength="1" />
+          <Property Name="employeeid" Type="int2" />
+          <Property Name="orderdate" Type="date" />
+          <Property Name="requireddate" Type="date" />
+          <Property Name="shippeddate" Type="date" />
+          <Property Name="shipvia" Type="int2" />
+          <Property Name="freight" Type="float4" />
+          <Property Name="shipname" Type="varchar" MaxLength="40" />
+          <Property Name="shipaddress" Type="varchar" MaxLength="60" />
+          <Property Name="shipcity" Type="varchar" MaxLength="15" />
+          <Property Name="shipregion" Type="varchar" MaxLength="15" />
+          <Property Name="shippostalcode" Type="varchar" MaxLength="10" />
+          <Property Name="shipcountry" Type="varchar" MaxLength="15" />
+        </EntityType>
+        <EntityType Name="products">
+          <Key>
+            <PropertyRef Name="productid" />
+          </Key>
+          <Property Name="productid" Type="int2" Nullable="false" />
+          <Property Name="productname" Type="varchar" MaxLength="40" Nullable="false" />
+          <Property Name="supplierid" Type="int2" />
+          <Property Name="categoryid" Type="int2" />
+          <Property Name="quantityperunit" Type="varchar" MaxLength="20" />
+          <Property Name="unitprice" Type="float4" />
+          <Property Name="unitsinstock" Type="int2" />
+          <Property Name="unitsonorder" Type="int2" />
+          <Property Name="reorderlevel" Type="int2" />
+          <Property Name="discontinued" Type="int4" Nullable="false" />
+        </EntityType>
+        <EntityType Name="region">
+          <Key>
+            <PropertyRef Name="regionid" />
+          </Key>
+          <Property Name="regionid" Type="int2" Nullable="false" />
+          <Property Name="regiondescription" Type="bpchar" MaxLength="1" Nullable="false" />
+        </EntityType>
+        <EntityType Name="shippers">
+          <Key>
+            <PropertyRef Name="shipperid" />
+          </Key>
+          <Property Name="shipperid" Type="int2" Nullable="false" />
+          <Property Name="companyname" Type="varchar" MaxLength="40" Nullable="false" />
+          <Property Name="phone" Type="varchar" MaxLength="24" />
+        </EntityType>
+        <EntityType Name="suppliers">
+          <Key>
+            <PropertyRef Name="supplierid" />
+          </Key>
+          <Property Name="supplierid" Type="int2" Nullable="false" />
+          <Property Name="companyname" Type="varchar" MaxLength="40" Nullable="false" />
+          <Property Name="contactname" Type="varchar" MaxLength="30" />
+          <Property Name="contacttitle" Type="varchar" MaxLength="30" />
+          <Property Name="address" Type="varchar" MaxLength="60" />
+          <Property Name="city" Type="varchar" MaxLength="15" />
+          <Property Name="region" Type="varchar" MaxLength="15" />
+          <Property Name="postalcode" Type="varchar" MaxLength="10" />
+          <Property Name="country" Type="varchar" MaxLength="15" />
+          <Property Name="phone" Type="varchar" MaxLength="24" />
+          <Property Name="fax" Type="varchar" MaxLength="24" />
+          <Property Name="homepage" Type="text" />
+        </EntityType>
+        <EntityType Name="territories">
+          <Key>
+            <PropertyRef Name="territoryid" />
+          </Key>
+          <Property Name="territoryid" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="territorydescription" Type="bpchar" MaxLength="1" Nullable="false" />
+          <Property Name="regionid" Type="int2" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'Northwind.public.usstates' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="usstates">
+          <Key>
+            <PropertyRef Name="stateid" />
+          </Key>
+          <Property Name="stateid" Type="int2" Nullable="false" />
+          <Property Name="statename" Type="varchar" MaxLength="100" />
+          <Property Name="stateabbr" Type="varchar" MaxLength="2" />
+          <Property Name="stateregion" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <Association Name="fk_customercustomerdemo_customerdemographics">
+          <End Role="customerdemographics" Type="Self.customerdemographics" Multiplicity="1" />
+          <End Role="customercustomerdemo" Type="Self.customercustomerdemo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="customerdemographics">
+              <PropertyRef Name="customertypeid" />
+            </Principal>
+            <Dependent Role="customercustomerdemo">
+              <PropertyRef Name="customertypeid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_customercustomerdemo_customers">
+          <End Role="customers" Type="Self.customers" Multiplicity="1" />
+          <End Role="customercustomerdemo" Type="Self.customercustomerdemo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="customers">
+              <PropertyRef Name="customerid" />
+            </Principal>
+            <Dependent Role="customercustomerdemo">
+              <PropertyRef Name="customerid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_employees_employees">
+          <End Role="employees" Type="Self.employees" Multiplicity="0..1" />
+          <End Role="employees1" Type="Self.employees" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="employees">
+              <PropertyRef Name="employeeid" />
+            </Principal>
+            <Dependent Role="employees1">
+              <PropertyRef Name="reportsto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_employeeterritories_employees">
+          <End Role="employees" Type="Self.employees" Multiplicity="1" />
+          <End Role="employeeterritories" Type="Self.employeeterritories" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="employees">
+              <PropertyRef Name="employeeid" />
+            </Principal>
+            <Dependent Role="employeeterritories">
+              <PropertyRef Name="employeeid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_employeeterritories_territories">
+          <End Role="territories" Type="Self.territories" Multiplicity="1" />
+          <End Role="employeeterritories" Type="Self.employeeterritories" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="territories">
+              <PropertyRef Name="territoryid" />
+            </Principal>
+            <Dependent Role="employeeterritories">
+              <PropertyRef Name="territoryid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_order_details_orders">
+          <End Role="orders" Type="Self.orders" Multiplicity="1" />
+          <End Role="order_details" Type="Self.order_details" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="orders">
+              <PropertyRef Name="orderid" />
+            </Principal>
+            <Dependent Role="order_details">
+              <PropertyRef Name="orderid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_order_details_products">
+          <End Role="products" Type="Self.products" Multiplicity="1" />
+          <End Role="order_details" Type="Self.order_details" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="products">
+              <PropertyRef Name="productid" />
+            </Principal>
+            <Dependent Role="order_details">
+              <PropertyRef Name="productid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_orders_customers">
+          <End Role="customers" Type="Self.customers" Multiplicity="0..1" />
+          <End Role="orders" Type="Self.orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="customers">
+              <PropertyRef Name="customerid" />
+            </Principal>
+            <Dependent Role="orders">
+              <PropertyRef Name="customerid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_orders_employees">
+          <End Role="employees" Type="Self.employees" Multiplicity="0..1" />
+          <End Role="orders" Type="Self.orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="employees">
+              <PropertyRef Name="employeeid" />
+            </Principal>
+            <Dependent Role="orders">
+              <PropertyRef Name="employeeid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_orders_shippers">
+          <End Role="shippers" Type="Self.shippers" Multiplicity="0..1" />
+          <End Role="orders" Type="Self.orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="shippers">
+              <PropertyRef Name="shipperid" />
+            </Principal>
+            <Dependent Role="orders">
+              <PropertyRef Name="shipvia" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_products_categories">
+          <End Role="categories" Type="Self.categories" Multiplicity="0..1" />
+          <End Role="products" Type="Self.products" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="categories">
+              <PropertyRef Name="categoryid" />
+            </Principal>
+            <Dependent Role="products">
+              <PropertyRef Name="categoryid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_products_suppliers">
+          <End Role="suppliers" Type="Self.suppliers" Multiplicity="0..1" />
+          <End Role="products" Type="Self.products" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="suppliers">
+              <PropertyRef Name="supplierid" />
+            </Principal>
+            <Dependent Role="products">
+              <PropertyRef Name="supplierid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_territories_region">
+          <End Role="region" Type="Self.region" Multiplicity="1" />
+          <End Role="territories" Type="Self.territories" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="region">
+              <PropertyRef Name="regionid" />
+            </Principal>
+            <Dependent Role="territories">
+              <PropertyRef Name="regionid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="NorthwindModelStoreContainer">
+          <EntitySet Name="categories" EntityType="Self.categories" Schema="public" store:Type="Tables" />
+          <EntitySet Name="customercustomerdemo" EntityType="Self.customercustomerdemo" Schema="public" store:Type="Tables" />
+          <EntitySet Name="customerdemographics" EntityType="Self.customerdemographics" Schema="public" store:Type="Tables" />
+          <EntitySet Name="customers" EntityType="Self.customers" Schema="public" store:Type="Tables" />
+          <EntitySet Name="employees" EntityType="Self.employees" Schema="public" store:Type="Tables" />
+          <EntitySet Name="employeeterritories" EntityType="Self.employeeterritories" Schema="public" store:Type="Tables" />
+          <EntitySet Name="order_details" EntityType="Self.order_details" Schema="public" store:Type="Tables" />
+          <EntitySet Name="orders" EntityType="Self.orders" Schema="public" store:Type="Tables" />
+          <EntitySet Name="products" EntityType="Self.products" Schema="public" store:Type="Tables" />
+          <EntitySet Name="region" EntityType="Self.region" Schema="public" store:Type="Tables" />
+          <EntitySet Name="shippers" EntityType="Self.shippers" Schema="public" store:Type="Tables" />
+          <EntitySet Name="suppliers" EntityType="Self.suppliers" Schema="public" store:Type="Tables" />
+          <EntitySet Name="territories" EntityType="Self.territories" Schema="public" store:Type="Tables" />
+          <EntitySet Name="usstates" EntityType="Self.usstates" store:Type="Tables" store:Schema="public">
+            <DefiningQuery>SELECT "usstates"."stateid", "usstates"."statename", "usstates"."stateabbr", "usstates"."stateregion" FROM "public"."usstates" AS "usstates"</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="fk_customercustomerdemo_customerdemographics" Association="Self.fk_customercustomerdemo_customerdemographics">
+            <End Role="customerdemographics" EntitySet="customerdemographics" />
+            <End Role="customercustomerdemo" EntitySet="customercustomerdemo" />
+          </AssociationSet>
+          <AssociationSet Name="fk_customercustomerdemo_customers" Association="Self.fk_customercustomerdemo_customers">
+            <End Role="customers" EntitySet="customers" />
+            <End Role="customercustomerdemo" EntitySet="customercustomerdemo" />
+          </AssociationSet>
+          <AssociationSet Name="fk_employees_employees" Association="Self.fk_employees_employees">
+            <End Role="employees" EntitySet="employees" />
+            <End Role="employees1" EntitySet="employees" />
+          </AssociationSet>
+          <AssociationSet Name="fk_employeeterritories_employees" Association="Self.fk_employeeterritories_employees">
+            <End Role="employees" EntitySet="employees" />
+            <End Role="employeeterritories" EntitySet="employeeterritories" />
+          </AssociationSet>
+          <AssociationSet Name="fk_employeeterritories_territories" Association="Self.fk_employeeterritories_territories">
+            <End Role="territories" EntitySet="territories" />
+            <End Role="employeeterritories" EntitySet="employeeterritories" />
+          </AssociationSet>
+          <AssociationSet Name="fk_order_details_orders" Association="Self.fk_order_details_orders">
+            <End Role="orders" EntitySet="orders" />
+            <End Role="order_details" EntitySet="order_details" />
+          </AssociationSet>
+          <AssociationSet Name="fk_order_details_products" Association="Self.fk_order_details_products">
+            <End Role="products" EntitySet="products" />
+            <End Role="order_details" EntitySet="order_details" />
+          </AssociationSet>
+          <AssociationSet Name="fk_orders_customers" Association="Self.fk_orders_customers">
+            <End Role="customers" EntitySet="customers" />
+            <End Role="orders" EntitySet="orders" />
+          </AssociationSet>
+          <AssociationSet Name="fk_orders_employees" Association="Self.fk_orders_employees">
+            <End Role="employees" EntitySet="employees" />
+            <End Role="orders" EntitySet="orders" />
+          </AssociationSet>
+          <AssociationSet Name="fk_orders_shippers" Association="Self.fk_orders_shippers">
+            <End Role="shippers" EntitySet="shippers" />
+            <End Role="orders" EntitySet="orders" />
+          </AssociationSet>
+          <AssociationSet Name="fk_products_categories" Association="Self.fk_products_categories">
+            <End Role="categories" EntitySet="categories" />
+            <End Role="products" EntitySet="products" />
+          </AssociationSet>
+          <AssociationSet Name="fk_products_suppliers" Association="Self.fk_products_suppliers">
+            <End Role="suppliers" EntitySet="suppliers" />
+            <End Role="products" EntitySet="products" />
+          </AssociationSet>
+          <AssociationSet Name="fk_territories_region" Association="Self.fk_territories_region">
+            <End Role="region" EntitySet="region" />
+            <End Role="territories" EntitySet="territories" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="NorthwindModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="category">
+          <Key>
+            <PropertyRef Name="categoryid" />
+          </Key>
+          <Property Name="categoryid" Type="Int16" Nullable="false" />
+          <Property Name="categoryname" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="picture" Type="Binary" MaxLength="2147483647" FixedLength="false" />
+          <NavigationProperty Name="products" Relationship="Self.fk_products_categories" FromRole="categories" ToRole="products" />
+        </EntityType>
+        <EntityType Name="customerdemographic">
+          <Key>
+            <PropertyRef Name="customertypeid" />
+          </Key>
+          <Property Name="customertypeid" Type="String" MaxLength="1" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="customerdesc" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="customers" Relationship="Self.customercustomerdemo" FromRole="customerdemographics" ToRole="customers" />
+        </EntityType>
+        <EntityType Name="customer">
+          <Key>
+            <PropertyRef Name="customerid" />
+          </Key>
+          <Property Name="customerid" Type="String" MaxLength="1" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="companyname" Type="String" MaxLength="40" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="contactname" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="contacttitle" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="address" Type="String" MaxLength="60" FixedLength="false" Unicode="true" />
+          <Property Name="city" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Name="region" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Name="postalcode" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="country" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Name="phone" Type="String" MaxLength="24" FixedLength="false" Unicode="true" />
+          <Property Name="fax" Type="String" MaxLength="24" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="orders" Relationship="Self.fk_orders_customers" FromRole="customers" ToRole="orders" />
+          <NavigationProperty Name="customerdemographics" Relationship="Self.customercustomerdemo" FromRole="customers" ToRole="customerdemographics" />
+        </EntityType>
+        <EntityType Name="employee">
+          <Key>
+            <PropertyRef Name="employeeid" />
+          </Key>
+          <Property Name="employeeid" Type="Int16" Nullable="false" />
+          <Property Name="lastname" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="firstname" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="title" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="titleofcourtesy" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Name="birthdate" Type="DateTime" Precision="0" />
+          <Property Name="hiredate" Type="DateTime" Precision="0" />
+          <Property Name="address" Type="String" MaxLength="60" FixedLength="false" Unicode="true" />
+          <Property Name="city" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Name="region" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Name="postalcode" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="country" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Name="homephone" Type="String" MaxLength="24" FixedLength="false" Unicode="true" />
+          <Property Name="extension" Type="String" MaxLength="4" FixedLength="false" Unicode="true" />
+          <Property Name="photo" Type="Binary" MaxLength="2147483647" FixedLength="false" />
+          <Property Name="notes" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="reportsto" Type="Int16" />
+          <Property Name="photopath" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="employees1" Relationship="Self.fk_employees_employees" FromRole="employees" ToRole="employees1" />
+          <NavigationProperty Name="employee1" Relationship="Self.fk_employees_employees" FromRole="employees1" ToRole="employees" />
+          <NavigationProperty Name="orders" Relationship="Self.fk_orders_employees" FromRole="employees" ToRole="orders" />
+          <NavigationProperty Name="territories" Relationship="Self.employeeterritories" FromRole="employees" ToRole="territories" />
+        </EntityType>
+        <EntityType Name="order_details">
+          <Key>
+            <PropertyRef Name="orderid" />
+            <PropertyRef Name="productid" />
+          </Key>
+          <Property Name="orderid" Type="Int16" Nullable="false" />
+          <Property Name="productid" Type="Int16" Nullable="false" />
+          <Property Name="unitprice" Type="Single" Nullable="false" />
+          <Property Name="quantity" Type="Int16" Nullable="false" />
+          <Property Name="discount" Type="Single" Nullable="false" />
+          <NavigationProperty Name="order" Relationship="Self.fk_order_details_orders" FromRole="order_details" ToRole="orders" />
+          <NavigationProperty Name="product" Relationship="Self.fk_order_details_products" FromRole="order_details" ToRole="products" />
+        </EntityType>
+        <EntityType Name="order">
+          <Key>
+            <PropertyRef Name="orderid" />
+          </Key>
+          <Property Name="orderid" Type="Int16" Nullable="false" />
+          <Property Name="customerid" Type="String" MaxLength="1" FixedLength="true" Unicode="true" />
+          <Property Name="employeeid" Type="Int16" />
+          <Property Name="orderdate" Type="DateTime" Precision="0" />
+          <Property Name="requireddate" Type="DateTime" Precision="0" />
+          <Property Name="shippeddate" Type="DateTime" Precision="0" />
+          <Property Name="shipvia" Type="Int16" />
+          <Property Name="freight" Type="Single" />
+          <Property Name="shipname" Type="String" MaxLength="40" FixedLength="false" Unicode="true" />
+          <Property Name="shipaddress" Type="String" MaxLength="60" FixedLength="false" Unicode="true" />
+          <Property Name="shipcity" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Name="shipregion" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Name="shippostalcode" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="shipcountry" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="customer" Relationship="Self.fk_orders_customers" FromRole="orders" ToRole="customers" />
+          <NavigationProperty Name="employee" Relationship="Self.fk_orders_employees" FromRole="orders" ToRole="employees" />
+          <NavigationProperty Name="order_details" Relationship="Self.fk_order_details_orders" FromRole="orders" ToRole="order_details" />
+          <NavigationProperty Name="shipper" Relationship="Self.fk_orders_shippers" FromRole="orders" ToRole="shippers" />
+        </EntityType>
+        <EntityType Name="product">
+          <Key>
+            <PropertyRef Name="productid" />
+          </Key>
+          <Property Name="productid" Type="Int16" Nullable="false" />
+          <Property Name="productname" Type="String" MaxLength="40" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="supplierid" Type="Int16" />
+          <Property Name="categoryid" Type="Int16" />
+          <Property Name="quantityperunit" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="unitprice" Type="Single" />
+          <Property Name="unitsinstock" Type="Int16" />
+          <Property Name="unitsonorder" Type="Int16" />
+          <Property Name="reorderlevel" Type="Int16" />
+          <Property Name="discontinued" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="category" Relationship="Self.fk_products_categories" FromRole="products" ToRole="categories" />
+          <NavigationProperty Name="order_details" Relationship="Self.fk_order_details_products" FromRole="products" ToRole="order_details" />
+          <NavigationProperty Name="supplier" Relationship="Self.fk_products_suppliers" FromRole="products" ToRole="suppliers" />
+        </EntityType>
+        <EntityType Name="region">
+          <Key>
+            <PropertyRef Name="regionid" />
+          </Key>
+          <Property Name="regionid" Type="Int16" Nullable="false" />
+          <Property Name="regiondescription" Type="String" MaxLength="1" FixedLength="true" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="territories" Relationship="Self.fk_territories_region" FromRole="region" ToRole="territories" />
+        </EntityType>
+        <EntityType Name="shipper">
+          <Key>
+            <PropertyRef Name="shipperid" />
+          </Key>
+          <Property Name="shipperid" Type="Int16" Nullable="false" />
+          <Property Name="companyname" Type="String" MaxLength="40" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="phone" Type="String" MaxLength="24" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="orders" Relationship="Self.fk_orders_shippers" FromRole="shippers" ToRole="orders" />
+        </EntityType>
+        <EntityType Name="supplier">
+          <Key>
+            <PropertyRef Name="supplierid" />
+          </Key>
+          <Property Name="supplierid" Type="Int16" Nullable="false" />
+          <Property Name="companyname" Type="String" MaxLength="40" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="contactname" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="contacttitle" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="address" Type="String" MaxLength="60" FixedLength="false" Unicode="true" />
+          <Property Name="city" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Name="region" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Name="postalcode" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="country" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Name="phone" Type="String" MaxLength="24" FixedLength="false" Unicode="true" />
+          <Property Name="fax" Type="String" MaxLength="24" FixedLength="false" Unicode="true" />
+          <Property Name="homepage" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="products" Relationship="Self.fk_products_suppliers" FromRole="suppliers" ToRole="products" />
+        </EntityType>
+        <EntityType Name="territory">
+          <Key>
+            <PropertyRef Name="territoryid" />
+          </Key>
+          <Property Name="territoryid" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="territorydescription" Type="String" MaxLength="1" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="regionid" Type="Int16" Nullable="false" />
+          <NavigationProperty Name="region" Relationship="Self.fk_territories_region" FromRole="territories" ToRole="region" />
+          <NavigationProperty Name="employees" Relationship="Self.employeeterritories" FromRole="territories" ToRole="employees" />
+        </EntityType>
+        <EntityType Name="usstate">
+          <Key>
+            <PropertyRef Name="stateid" />
+          </Key>
+          <Property Name="stateid" Type="Int16" Nullable="false" />
+          <Property Name="statename" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="stateabbr" Type="String" MaxLength="2" FixedLength="false" Unicode="true" />
+          <Property Name="stateregion" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <Association Name="fk_products_categories">
+          <End Role="categories" Type="Self.category" Multiplicity="0..1" />
+          <End Role="products" Type="Self.product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="categories">
+              <PropertyRef Name="categoryid" />
+            </Principal>
+            <Dependent Role="products">
+              <PropertyRef Name="categoryid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_orders_customers">
+          <End Role="customers" Type="Self.customer" Multiplicity="0..1" />
+          <End Role="orders" Type="Self.order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="customers">
+              <PropertyRef Name="customerid" />
+            </Principal>
+            <Dependent Role="orders">
+              <PropertyRef Name="customerid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_employees_employees">
+          <End Role="employees" Type="Self.employee" Multiplicity="0..1" />
+          <End Role="employees1" Type="Self.employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="employees">
+              <PropertyRef Name="employeeid" />
+            </Principal>
+            <Dependent Role="employees1">
+              <PropertyRef Name="reportsto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_orders_employees">
+          <End Role="employees" Type="Self.employee" Multiplicity="0..1" />
+          <End Role="orders" Type="Self.order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="employees">
+              <PropertyRef Name="employeeid" />
+            </Principal>
+            <Dependent Role="orders">
+              <PropertyRef Name="employeeid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_order_details_orders">
+          <End Role="orders" Type="Self.order" Multiplicity="1" />
+          <End Role="order_details" Type="Self.order_details" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="orders">
+              <PropertyRef Name="orderid" />
+            </Principal>
+            <Dependent Role="order_details">
+              <PropertyRef Name="orderid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_order_details_products">
+          <End Role="products" Type="Self.product" Multiplicity="1" />
+          <End Role="order_details" Type="Self.order_details" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="products">
+              <PropertyRef Name="productid" />
+            </Principal>
+            <Dependent Role="order_details">
+              <PropertyRef Name="productid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_orders_shippers">
+          <End Role="shippers" Type="Self.shipper" Multiplicity="0..1" />
+          <End Role="orders" Type="Self.order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="shippers">
+              <PropertyRef Name="shipperid" />
+            </Principal>
+            <Dependent Role="orders">
+              <PropertyRef Name="shipvia" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_products_suppliers">
+          <End Role="suppliers" Type="Self.supplier" Multiplicity="0..1" />
+          <End Role="products" Type="Self.product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="suppliers">
+              <PropertyRef Name="supplierid" />
+            </Principal>
+            <Dependent Role="products">
+              <PropertyRef Name="supplierid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_territories_region">
+          <End Role="region" Type="Self.region" Multiplicity="1" />
+          <End Role="territories" Type="Self.territory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="region">
+              <PropertyRef Name="regionid" />
+            </Principal>
+            <Dependent Role="territories">
+              <PropertyRef Name="regionid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="customercustomerdemo">
+          <End Role="customerdemographics" Type="Self.customerdemographic" Multiplicity="*" />
+          <End Role="customers" Type="Self.customer" Multiplicity="*" />
+        </Association>
+        <Association Name="employeeterritories">
+          <End Role="employees" Type="Self.employee" Multiplicity="*" />
+          <End Role="territories" Type="Self.territory" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="NorthwindEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="categories" EntityType="Self.category" />
+          <EntitySet Name="customerdemographics" EntityType="Self.customerdemographic" />
+          <EntitySet Name="customers" EntityType="Self.customer" />
+          <EntitySet Name="employees" EntityType="Self.employee" />
+          <EntitySet Name="order_details" EntityType="Self.order_details" />
+          <EntitySet Name="orders" EntityType="Self.order" />
+          <EntitySet Name="products" EntityType="Self.product" />
+          <EntitySet Name="regions" EntityType="Self.region" />
+          <EntitySet Name="shippers" EntityType="Self.shipper" />
+          <EntitySet Name="suppliers" EntityType="Self.supplier" />
+          <EntitySet Name="territories" EntityType="Self.territory" />
+          <EntitySet Name="usstates" EntityType="Self.usstate" />
+          <AssociationSet Name="fk_products_categories" Association="Self.fk_products_categories">
+            <End Role="categories" EntitySet="categories" />
+            <End Role="products" EntitySet="products" />
+          </AssociationSet>
+          <AssociationSet Name="fk_orders_customers" Association="Self.fk_orders_customers">
+            <End Role="customers" EntitySet="customers" />
+            <End Role="orders" EntitySet="orders" />
+          </AssociationSet>
+          <AssociationSet Name="fk_employees_employees" Association="Self.fk_employees_employees">
+            <End Role="employees" EntitySet="employees" />
+            <End Role="employees1" EntitySet="employees" />
+          </AssociationSet>
+          <AssociationSet Name="fk_orders_employees" Association="Self.fk_orders_employees">
+            <End Role="employees" EntitySet="employees" />
+            <End Role="orders" EntitySet="orders" />
+          </AssociationSet>
+          <AssociationSet Name="fk_order_details_orders" Association="Self.fk_order_details_orders">
+            <End Role="orders" EntitySet="orders" />
+            <End Role="order_details" EntitySet="order_details" />
+          </AssociationSet>
+          <AssociationSet Name="fk_order_details_products" Association="Self.fk_order_details_products">
+            <End Role="products" EntitySet="products" />
+            <End Role="order_details" EntitySet="order_details" />
+          </AssociationSet>
+          <AssociationSet Name="fk_orders_shippers" Association="Self.fk_orders_shippers">
+            <End Role="shippers" EntitySet="shippers" />
+            <End Role="orders" EntitySet="orders" />
+          </AssociationSet>
+          <AssociationSet Name="fk_products_suppliers" Association="Self.fk_products_suppliers">
+            <End Role="suppliers" EntitySet="suppliers" />
+            <End Role="products" EntitySet="products" />
+          </AssociationSet>
+          <AssociationSet Name="fk_territories_region" Association="Self.fk_territories_region">
+            <End Role="region" EntitySet="regions" />
+            <End Role="territories" EntitySet="territories" />
+          </AssociationSet>
+          <AssociationSet Name="customercustomerdemo" Association="Self.customercustomerdemo">
+            <End Role="customerdemographics" EntitySet="customerdemographics" />
+            <End Role="customers" EntitySet="customers" />
+          </AssociationSet>
+          <AssociationSet Name="employeeterritories" Association="Self.employeeterritories">
+            <End Role="employees" EntitySet="employees" />
+            <End Role="territories" EntitySet="territories" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="NorthwindModelStoreContainer" CdmEntityContainer="NorthwindEntities">
+          <EntitySetMapping Name="categories">
+            <EntityTypeMapping TypeName="NorthwindModel.category">
+              <MappingFragment StoreEntitySet="categories">
+                <ScalarProperty Name="categoryid" ColumnName="categoryid" />
+                <ScalarProperty Name="categoryname" ColumnName="categoryname" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="picture" ColumnName="picture" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="customerdemographics">
+            <EntityTypeMapping TypeName="NorthwindModel.customerdemographic">
+              <MappingFragment StoreEntitySet="customerdemographics">
+                <ScalarProperty Name="customertypeid" ColumnName="customertypeid" />
+                <ScalarProperty Name="customerdesc" ColumnName="customerdesc" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="customers">
+            <EntityTypeMapping TypeName="NorthwindModel.customer">
+              <MappingFragment StoreEntitySet="customers">
+                <ScalarProperty Name="customerid" ColumnName="customerid" />
+                <ScalarProperty Name="companyname" ColumnName="companyname" />
+                <ScalarProperty Name="contactname" ColumnName="contactname" />
+                <ScalarProperty Name="contacttitle" ColumnName="contacttitle" />
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="city" ColumnName="city" />
+                <ScalarProperty Name="region" ColumnName="region" />
+                <ScalarProperty Name="postalcode" ColumnName="postalcode" />
+                <ScalarProperty Name="country" ColumnName="country" />
+                <ScalarProperty Name="phone" ColumnName="phone" />
+                <ScalarProperty Name="fax" ColumnName="fax" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="employees">
+            <EntityTypeMapping TypeName="NorthwindModel.employee">
+              <MappingFragment StoreEntitySet="employees">
+                <ScalarProperty Name="employeeid" ColumnName="employeeid" />
+                <ScalarProperty Name="lastname" ColumnName="lastname" />
+                <ScalarProperty Name="firstname" ColumnName="firstname" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="titleofcourtesy" ColumnName="titleofcourtesy" />
+                <ScalarProperty Name="birthdate" ColumnName="birthdate" />
+                <ScalarProperty Name="hiredate" ColumnName="hiredate" />
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="city" ColumnName="city" />
+                <ScalarProperty Name="region" ColumnName="region" />
+                <ScalarProperty Name="postalcode" ColumnName="postalcode" />
+                <ScalarProperty Name="country" ColumnName="country" />
+                <ScalarProperty Name="homephone" ColumnName="homephone" />
+                <ScalarProperty Name="extension" ColumnName="extension" />
+                <ScalarProperty Name="photo" ColumnName="photo" />
+                <ScalarProperty Name="notes" ColumnName="notes" />
+                <ScalarProperty Name="reportsto" ColumnName="reportsto" />
+                <ScalarProperty Name="photopath" ColumnName="photopath" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="order_details">
+            <EntityTypeMapping TypeName="NorthwindModel.order_details">
+              <MappingFragment StoreEntitySet="order_details">
+                <ScalarProperty Name="orderid" ColumnName="orderid" />
+                <ScalarProperty Name="productid" ColumnName="productid" />
+                <ScalarProperty Name="unitprice" ColumnName="unitprice" />
+                <ScalarProperty Name="quantity" ColumnName="quantity" />
+                <ScalarProperty Name="discount" ColumnName="discount" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="orders">
+            <EntityTypeMapping TypeName="NorthwindModel.order">
+              <MappingFragment StoreEntitySet="orders">
+                <ScalarProperty Name="orderid" ColumnName="orderid" />
+                <ScalarProperty Name="customerid" ColumnName="customerid" />
+                <ScalarProperty Name="employeeid" ColumnName="employeeid" />
+                <ScalarProperty Name="orderdate" ColumnName="orderdate" />
+                <ScalarProperty Name="requireddate" ColumnName="requireddate" />
+                <ScalarProperty Name="shippeddate" ColumnName="shippeddate" />
+                <ScalarProperty Name="shipvia" ColumnName="shipvia" />
+                <ScalarProperty Name="freight" ColumnName="freight" />
+                <ScalarProperty Name="shipname" ColumnName="shipname" />
+                <ScalarProperty Name="shipaddress" ColumnName="shipaddress" />
+                <ScalarProperty Name="shipcity" ColumnName="shipcity" />
+                <ScalarProperty Name="shipregion" ColumnName="shipregion" />
+                <ScalarProperty Name="shippostalcode" ColumnName="shippostalcode" />
+                <ScalarProperty Name="shipcountry" ColumnName="shipcountry" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="products">
+            <EntityTypeMapping TypeName="NorthwindModel.product">
+              <MappingFragment StoreEntitySet="products">
+                <ScalarProperty Name="productid" ColumnName="productid" />
+                <ScalarProperty Name="productname" ColumnName="productname" />
+                <ScalarProperty Name="supplierid" ColumnName="supplierid" />
+                <ScalarProperty Name="categoryid" ColumnName="categoryid" />
+                <ScalarProperty Name="quantityperunit" ColumnName="quantityperunit" />
+                <ScalarProperty Name="unitprice" ColumnName="unitprice" />
+                <ScalarProperty Name="unitsinstock" ColumnName="unitsinstock" />
+                <ScalarProperty Name="unitsonorder" ColumnName="unitsonorder" />
+                <ScalarProperty Name="reorderlevel" ColumnName="reorderlevel" />
+                <ScalarProperty Name="discontinued" ColumnName="discontinued" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="regions">
+            <EntityTypeMapping TypeName="NorthwindModel.region">
+              <MappingFragment StoreEntitySet="region">
+                <ScalarProperty Name="regionid" ColumnName="regionid" />
+                <ScalarProperty Name="regiondescription" ColumnName="regiondescription" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="shippers">
+            <EntityTypeMapping TypeName="NorthwindModel.shipper">
+              <MappingFragment StoreEntitySet="shippers">
+                <ScalarProperty Name="shipperid" ColumnName="shipperid" />
+                <ScalarProperty Name="companyname" ColumnName="companyname" />
+                <ScalarProperty Name="phone" ColumnName="phone" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="suppliers">
+            <EntityTypeMapping TypeName="NorthwindModel.supplier">
+              <MappingFragment StoreEntitySet="suppliers">
+                <ScalarProperty Name="supplierid" ColumnName="supplierid" />
+                <ScalarProperty Name="companyname" ColumnName="companyname" />
+                <ScalarProperty Name="contactname" ColumnName="contactname" />
+                <ScalarProperty Name="contacttitle" ColumnName="contacttitle" />
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="city" ColumnName="city" />
+                <ScalarProperty Name="region" ColumnName="region" />
+                <ScalarProperty Name="postalcode" ColumnName="postalcode" />
+                <ScalarProperty Name="country" ColumnName="country" />
+                <ScalarProperty Name="phone" ColumnName="phone" />
+                <ScalarProperty Name="fax" ColumnName="fax" />
+                <ScalarProperty Name="homepage" ColumnName="homepage" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="territories">
+            <EntityTypeMapping TypeName="NorthwindModel.territory">
+              <MappingFragment StoreEntitySet="territories">
+                <ScalarProperty Name="territoryid" ColumnName="territoryid" />
+                <ScalarProperty Name="territorydescription" ColumnName="territorydescription" />
+                <ScalarProperty Name="regionid" ColumnName="regionid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="usstates">
+            <EntityTypeMapping TypeName="NorthwindModel.usstate">
+              <MappingFragment StoreEntitySet="usstates">
+                <ScalarProperty Name="stateid" ColumnName="stateid" />
+                <ScalarProperty Name="statename" ColumnName="statename" />
+                <ScalarProperty Name="stateabbr" ColumnName="stateabbr" />
+                <ScalarProperty Name="stateregion" ColumnName="stateregion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="customercustomerdemo" TypeName="NorthwindModel.customercustomerdemo" StoreEntitySet="customercustomerdemo">
+            <EndProperty Name="customerdemographics">
+              <ScalarProperty Name="customertypeid" ColumnName="customertypeid" />
+            </EndProperty>
+            <EndProperty Name="customers">
+              <ScalarProperty Name="customerid" ColumnName="customerid" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="employeeterritories" TypeName="NorthwindModel.employeeterritories" StoreEntitySet="employeeterritories">
+            <EndProperty Name="employees">
+              <ScalarProperty Name="employeeid" ColumnName="employeeid" />
+            </EndProperty>
+            <EndProperty Name="territories">
+              <ScalarProperty Name="territoryid" ColumnName="territoryid" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
